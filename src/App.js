@@ -1,27 +1,39 @@
 import Cookies from "js-cookie";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
+
+import "./styles/app.scss";
 import NavBar from "./components/nav/NavBar";
+import Login from "./components/pages/Login";
+import CheckForAuth from "./util/CheckForAuth";
 import { useEffect } from "react";
 
 function App() {
+  const [authenticated, setAuthenticated] = useState(false);
   useEffect(() => {
     const auth = Cookies.get("auth");
-    if (!auth) {
-      <Navigate to="/login"></Navigate>;
+    if (auth) {
+      setAuthenticated(true);
     }
-  }, [Cookies]);
+  }, [setAuthenticated]);
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route path="/login" element={"Login"}></Route>
-          <Route path="/" element={"Landing"}></Route>
-          <Route path="/songs" element={"Songs"}></Route>
-          <Route path="/songs" element={"Songs"}></Route>
-        </Routes>
-      </BrowserRouter>
+      {authenticated && <NavBar />}
+      <Routes>
+        <Route
+          path="/login"
+          element={<Login setAuthenticated={setAuthenticated} />}
+        />
+        <Route path="/" element={<CheckForAuth element="Landing" />} />
+        <Route path="/songs" element={<CheckForAuth element="Songs" />} />
+        <Route
+          path="/time-signatures"
+          element={<CheckForAuth element="Time-signatures" />}
+        />
+        <Route path="/chords" element={<CheckForAuth element="Chords" />} />
+        <Route path="/users" element={<CheckForAuth element="Users" />} />
+      </Routes>
     </div>
   );
 }

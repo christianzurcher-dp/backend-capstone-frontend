@@ -1,0 +1,29 @@
+body {
+  .App {
+    .login-container {
+      height: 80vh;
+
+      form {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      div {
+        width: 40%;
+        margin-bottom: 15px;
+        input {
+          width: 100%;
+          height: 30px;
+        }
+      }
+
+      button {
+        width: 100px;
+        height: 35px;
+      }
+    }
+  }
+}

@@ -1,10 +1,6 @@
-// postData("https://example.com/answer", { answer: 42 }).then((data) => {
-//   console.log(data); // JSON data parsed by `data.json()` call
-// });
-
 import Cookies from "js-cookie";
 
-const asyncAPICall = (
+const asyncAPICall = async (
   url = "",
   method = "",
   body = {},
@@ -18,10 +14,12 @@ const asyncAPICall = (
 
   url = `http://localhost:8086${url}`;
 
-  response = fetch(url, {
+  const response = await fetch(url, {
     method: method,
     headers: headers,
     body: JSON.stringify(body),
   });
   return response.json();
 };
+
+export default asyncAPICall;
